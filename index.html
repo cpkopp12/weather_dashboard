@@ -12,7 +12,7 @@
     <main>
         <div class="container">
             <div class="row">
-                <div class="col-4 col-md-4">
+                <div class="col-12 col-md-4">
                     <div class="card">
                         <h2 class="card-header">Search by City</h2>
                         <form id="search-form" class="card-body">
@@ -21,11 +21,55 @@
                             <button type="submit" class="btn btn-primary mt-2">Search</button>
                         </form>
                     </div>
+                    <div class="card">
+                        <h2 class="card-header">Search History</h2>
+                        <ul class="list-group list-group-flush" id="search-history-ul">
+
+                        </ul>
+                    </div>
                 </div>
                 
-                <div class="col-8 col-md-8">
+                <div class="col-12 col-md-8">
                     <div class="card">
-                        <h2 class="card-header" id="city-heading"></h2>
+                        <h2 class="card-header" id="city-heading">City Name</h2>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item" id="current-temp">Temperature:</li>
+                            <li class="list-group-item" id="current-wind">Wind:</li>
+                            <li class="list-group-item" id="current-humidity">Humidity:</li>
+                            <li class="list-group-item" id="current-uvi">UV Index:</li>
+                        </ul>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="card ml-3">
+                            <h5 class="card-title" id="p1-date">Date</h5>
+                            <p class="card-text" id="p1-temp">Temperature</p>
+                            <p class="card-text" id="p1-wind">Wind Speed</p>
+                            <p class="card-text" id="p1-humidity">Humidity</p>
+                        </div>
+                        <div class="card ml-3">
+                            <h5 class="card-title" id="p2-date">Date</h5>
+                            <p class="card-text" id="p2-temp">Temperature</p>
+                            <p class="card-text" id="p2-wind">Wind Speed</p>
+                            <p class="card-text" id="p2-humidity">Humidity</p>
+                        </div>
+                        <div class="card ml-3">
+                            <h5 class="card-title" id="p3-date">Date</h5>
+                            <p class="card-text" id="p3-temp">Temperature</p>
+                            <p class="card-text" id="p3-wind">Wind Speed</p>
+                            <p class="card-text" id="p3-humidity">Humidity</p>
+                        </div>
+                        <div class="card ml-3">
+                            <h5 class="card-title" id="p4-date">Date</h5>
+                            <p class="card-text" id="p4-temp">Temperature</p>
+                            <p class="card-text" id="p4-wind">Wind Speed</p>
+                            <p class="card-text" id="p4-humidity">Humidity</p>
+                        </div>
+                        <div class="card ml-3">
+                            <h5 class="card-title" id="p5-date">Date</h5>
+                            <p class="card-text" id="p5-temp">Temperature</p>
+                            <p class="card-text" id="p5-wind">Wind Speed</p>
+                            <p class="card-text" id="p5-humidity">Humidity</p>
+                        </div>
                     </div>
 
                 </div>

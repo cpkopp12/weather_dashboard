@@ -2,17 +2,86 @@
 var formEl = document.querySelector('#search-form');
 var searchInputEl = document.querySelector("#city-input");
 var cityHeaderEl = document.querySelector("#city-heading");
+var currentTempEl = document.querySelector("#current-temp");
+var currentWindEl = document.querySelector("#current-wind");
+var currentHumidityEl = document.querySelector("#current-humidity");
+var currentUviEl = document.querySelector("#current-uvi");
+var searchHistoryUlEl = document.querySelector("#search-history-ul");
+//method for generating date string
+var getDateString = function(dateObj) {
+    var day2 = dateObj.getDate();
+    var month2 = dateObj.getMonth()+1;
+    var year2 = dateObj.getFullYear();
+    var dateString = month2.toString()+"/"+day2.toString()+"/"+year2.toString();
+    return dateString;
+};
 
 //Other global vars
 const date = new Date();
+var datep1 = new Date(date);
+datep1.setDate(datep1.getDate()+1);
+var datep2 = new Date(date);
+datep2.setDate(datep2.getDate()+2);
+var datep3 = new Date(date);
+datep3.setDate(datep3.getDate()+3);
+var datep4 = new Date(date);
+datep4.setDate(datep4.getDate()+4);
+var datep5 = new Date(date);
+datep5.setDate(datep5.getDate()+5);
+var datep1String = getDateString(datep1);
+var datep2String = getDateString(datep2);
+var datep3String = getDateString(datep3);
+var datep4String = getDateString(datep4);
+var datep5String = getDateString(datep5);
 var day = date.getDate();
 var month = date.getMonth()+1;
 var year = date.getFullYear();
-var dateString = "("+month.toString()+"/"+day.toString()+"/"+year.toString()+")";
+var dateStringCurrent = "("+month.toString()+"/"+day.toString()+"/"+year.toString()+")";
+var cityheadername = "";
+var searchHistory =[];
+
+
+
+//display five day forcast
+
+//append search to search history ul
+var appendSearchHistory = function(citySearched) {
+    for (let i =0; i < searchHistory.length; i++) {
+        if (citySearched == searchHistory[i]) {
+            console.log("already searched");
+            return;
+        }
+    }
+    //add city search to to search history array
+    searchHistory.push(citySearched);
+
+    //create new display new list el
+    var newSearchHistoryEl = document.createElement("button");
+    newSearchHistoryEl.setAttribute("class","list-group-item btn btn-primary btn-block mt-2");
+    newSearchHistoryEl.setAttribute("type","button");
+    newSearchHistoryEl.setAttribute("style","background-color:blue;");
+    newSearchHistoryEl.innerHTML = citySearched;
+    
+    searchHistoryUlEl.appendChild(newSearchHistoryEl);
+};
+
+//search history handler function
+var searchHistoryHandler = function(event) {
+    event.preventDefault();
+    var btnClicked = event.target;
+    var cityClicked = btnClicked.innerHTML;
+    getCityWeather(cityClicked);
+};
 
 //display current city weather
 var displayCityWeather = function(apiData) {
-    cityHeaderEl.innerHTML = apiData.name+ "  " +dateString;
+    cityHeaderEl.innerHTML = cityheadername+ "  " +dateStringCurrent;
+    // Temp Wind Humidity UVindex
+    currentTempEl.innerHTML = "Temperature: " + apiData.current.temp +	"\u2109";
+    currentWindEl.innerHTML = "Wind Speed: " + apiData.current.wind_speed + "mph";
+    currentHumidityEl.innerHTML = "Humidity: " + apiData.current.humidity +"%";
+    currentUviEl.innerHTML = "UV Index: " + apiData.current.uvi;
+
 };
 
 
@@ -24,22 +93,26 @@ var getCityWeather = function(city) {
     fetch(apiUrl1).then(function(response1) {
         if (response1.ok) {
             response1.json().then(function(data1) {
-                var lon = data1.coord.lat;
-                var lat = data1.coord.lon;
+                var lon = data1.coord.lon;
+                var lat = data1.coord.lat;
+                cityheadername = data1.name;
+
+                //call search history method
+                appendSearchHistory(cityheadername);
+
                 //second call, gets weather and forcast including uv index, calling by city does not for some reason
                 //https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
-                var apiUrl2 = "https://api.openweathermap.org/data/3.0/onecall?lat="+lat+"&lon="+lon+"&appid=af1fe444e221932e7a28cfd9959741e1";
+                var apiUrl2 = "https://api.openweathermap.org/data/3.0/onecall?lat="+lat+"&lon="+lon+"&units=imperial&exclude=hourly,minutely&appid=af1fe444e221932e7a28cfd9959741e1";
                 fetch(apiUrl2).then(function(response2) {
                     if (response2.ok) {
                         response2.json().then(function(data2) {
-                            console.log(data2.current.uvi);
+                            console.log(data2);
+                            displayCityWeather(data2);
                         });
                     } else {
                         alert("error");
                     }
                 });
-                //console.log(lat,lon);
-                //displayCityWeather(data1);
             });
         } else {
             alert("Error");
@@ -63,6 +136,7 @@ var formSubmitHandler = function(event) {
 
 //add event listeners 
 formEl.addEventListener("submit",formSubmitHandler);
+searchHistoryUlEl.addEventListener("click",searchHistoryHandler);
 
 
 
