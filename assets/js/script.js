@@ -41,6 +41,13 @@ var dateStringCurrent = "("+month.toString()+"/"+day.toString()+"/"+year.toStrin
 var cityheadername = "";
 var searchHistory =[];
 
+//save Search History, call in getCityWeather()
+var saveSearchHistory = function() {
+    localStorage.setItem("searchHistory",JSON.stringify(searchHistory));
+};
+
+//load Search history
+
 
 //append search to search history ul
 var appendSearchHistory = function(citySearched) {
@@ -71,7 +78,7 @@ var searchHistoryHandler = function(event) {
     getCityWeather(cityClicked);
 };
 
-//display five day forcast, lots of repeating code so I made its own function
+//display five day forcast, lots of repeating code (definitely not the best way of doing this) so I made its own function
 //called in displayCityWeather() function
 var displayForcast = function(apiData) {
     //tomorrow
@@ -132,6 +139,7 @@ var getCityWeather = function(city) {
 
                 //call search history method
                 appendSearchHistory(cityheadername);
+                saveSearchHistory();
 
                 //second call, gets weather and forcast including uv index, calling by city does not for some reason
                 //https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
