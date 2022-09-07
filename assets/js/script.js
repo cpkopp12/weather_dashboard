@@ -47,6 +47,17 @@ var saveSearchHistory = function() {
 };
 
 //load Search history
+var loadSearchHistory = function() {
+    var localHist = localStorage.getItem("searchHistory");
+    localHist = JSON.parse(localHist);
+    if (localHist == null) {
+        return false;
+    } else {
+        for (let i = 0; i < localHist.length; i++) {
+            appendSearchHistory(localHist[i]); 
+        }
+    }
+};
 
 
 //append search to search history ul
@@ -147,7 +158,7 @@ var getCityWeather = function(city) {
                 fetch(apiUrl2).then(function(response2) {
                     if (response2.ok) {
                         response2.json().then(function(data2) {
-                            console.log(data2);
+                            //console.log(data2);
                             displayCityWeather(data2);
                         });
                     } else {
@@ -174,6 +185,8 @@ var formSubmitHandler = function(event) {
     }
 };
 
+//load local storage
+loadSearchHistory();
 
 //add event listeners 
 formEl.addEventListener("submit",formSubmitHandler);
