@@ -7,6 +7,7 @@ var currentWindEl = document.querySelector("#current-wind");
 var currentHumidityEl = document.querySelector("#current-humidity");
 var currentUviEl = document.querySelector("#current-uvi");
 var searchHistoryUlEl = document.querySelector("#search-history-ul");
+
 //method for generating date string
 var getDateString = function(dateObj) {
     var day2 = dateObj.getDate();
@@ -41,9 +42,6 @@ var cityheadername = "";
 var searchHistory =[];
 
 
-
-//display five day forcast
-
 //append search to search history ul
 var appendSearchHistory = function(citySearched) {
     for (let i =0; i < searchHistory.length; i++) {
@@ -73,6 +71,40 @@ var searchHistoryHandler = function(event) {
     getCityWeather(cityClicked);
 };
 
+//display five day forcast, lots of repeating code so I made its own function
+//called in displayCityWeather() function
+var displayForcast = function(apiData) {
+    //tomorrow
+    document.querySelector("#p1-date").innerHTML = datep1String;
+    document.querySelector("#p1-temp").innerHTML = "Temp: " + apiData.daily[1].temp.day + "\u2109";
+    document.querySelector("#p1-wind").innerHTML = "Wind: " + apiData.daily[1].wind_speed + "mph";
+    document.querySelector("#p1-humidity").innerHTML = "Humidity: " + apiData.daily[1].humidity+ "%";
+
+    //p2
+    document.querySelector("#p2-date").innerHTML = datep2String;
+    document.querySelector("#p2-temp").innerHTML = "Temp: " + apiData.daily[2].temp.day + "\u2109";
+    document.querySelector("#p2-wind").innerHTML = "Wind: " + apiData.daily[2].wind_speed + "mph";
+    document.querySelector("#p2-humidity").innerHTML = "Humidity: " + apiData.daily[2].humidity+ "%";
+
+    //p3
+    document.querySelector("#p3-date").innerHTML = datep3String;
+    document.querySelector("#p3-temp").innerHTML = "Temp: " + apiData.daily[3].temp.day + "\u2109";
+    document.querySelector("#p3-wind").innerHTML = "Wind: " + apiData.daily[3].wind_speed + "mph";
+    document.querySelector("#p3-humidity").innerHTML = "Humidity: " + apiData.daily[3].humidity+ "%";
+
+    //p4
+    document.querySelector("#p4-date").innerHTML = datep4String;
+    document.querySelector("#p4-temp").innerHTML = "Temp: " + apiData.daily[4].temp.day + "\u2109";
+    document.querySelector("#p4-wind").innerHTML = "Wind: " + apiData.daily[4].wind_speed + "mph";
+    document.querySelector("#p4-humidity").innerHTML = "Humidity: " + apiData.daily[4].humidity+ "%";
+
+    //p5
+    document.querySelector("#p5-date").innerHTML = datep5String;
+    document.querySelector("#p5-temp").innerHTML = "Temp: " + apiData.daily[5].temp.day + "\u2109";
+    document.querySelector("#p5-wind").innerHTML = "Wind: " + apiData.daily[5].wind_speed + "mph";
+    document.querySelector("#p5-humidity").innerHTML = "Humidity: " + apiData.daily[5].humidity+ "%";
+};
+
 //display current city weather
 var displayCityWeather = function(apiData) {
     cityHeaderEl.innerHTML = cityheadername+ "  " +dateStringCurrent;
@@ -81,6 +113,7 @@ var displayCityWeather = function(apiData) {
     currentWindEl.innerHTML = "Wind Speed: " + apiData.current.wind_speed + "mph";
     currentHumidityEl.innerHTML = "Humidity: " + apiData.current.humidity +"%";
     currentUviEl.innerHTML = "UV Index: " + apiData.current.uvi;
+    displayForcast(apiData);
 
 };
 
