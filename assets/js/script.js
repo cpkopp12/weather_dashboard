@@ -100,30 +100,35 @@ var searchHistoryHandler = function(event) {
 var displayForcast = function(apiData) {
     //tomorrow
     document.querySelector("#p1-date").innerHTML = datep1String;
+    document.querySelector("#p1-icon").innerHTML = getIconString(apiData.daily[1].weather[0].icon);
     document.querySelector("#p1-temp").innerHTML = "Temp: " + apiData.daily[1].temp.day + "\u2109";
     document.querySelector("#p1-wind").innerHTML = "Wind: " + apiData.daily[1].wind_speed + "mph";
     document.querySelector("#p1-humidity").innerHTML = "Humidity: " + apiData.daily[1].humidity+ "%";
 
     //p2
     document.querySelector("#p2-date").innerHTML = datep2String;
+    document.querySelector("#p2-icon").innerHTML = getIconString(apiData.daily[2].weather[0].icon);
     document.querySelector("#p2-temp").innerHTML = "Temp: " + apiData.daily[2].temp.day + "\u2109";
     document.querySelector("#p2-wind").innerHTML = "Wind: " + apiData.daily[2].wind_speed + "mph";
     document.querySelector("#p2-humidity").innerHTML = "Humidity: " + apiData.daily[2].humidity+ "%";
 
     //p3
     document.querySelector("#p3-date").innerHTML = datep3String;
+    document.querySelector("#p3-icon").innerHTML = getIconString(apiData.daily[3].weather[0].icon);
     document.querySelector("#p3-temp").innerHTML = "Temp: " + apiData.daily[3].temp.day + "\u2109";
     document.querySelector("#p3-wind").innerHTML = "Wind: " + apiData.daily[3].wind_speed + "mph";
     document.querySelector("#p3-humidity").innerHTML = "Humidity: " + apiData.daily[3].humidity+ "%";
 
     //p4
     document.querySelector("#p4-date").innerHTML = datep4String;
+    document.querySelector("#p4-icon").innerHTML = getIconString(apiData.daily[4].weather[0].icon);
     document.querySelector("#p4-temp").innerHTML = "Temp: " + apiData.daily[4].temp.day + "\u2109";
     document.querySelector("#p4-wind").innerHTML = "Wind: " + apiData.daily[4].wind_speed + "mph";
     document.querySelector("#p4-humidity").innerHTML = "Humidity: " + apiData.daily[4].humidity+ "%";
 
     //p5
     document.querySelector("#p5-date").innerHTML = datep5String;
+    document.querySelector("#p5-icon").innerHTML = getIconString(apiData.daily[5].weather[0].icon);
     document.querySelector("#p5-temp").innerHTML = "Temp: " + apiData.daily[5].temp.day + "\u2109";
     document.querySelector("#p5-wind").innerHTML = "Wind: " + apiData.daily[5].wind_speed + "mph";
     document.querySelector("#p5-humidity").innerHTML = "Humidity: " + apiData.daily[5].humidity+ "%";
