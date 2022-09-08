@@ -70,7 +70,6 @@ var loadSearchHistory = function() {
 var appendSearchHistory = function(citySearched) {
     for (let i =0; i < searchHistory.length; i++) {
         if (citySearched == searchHistory[i]) {
-            console.log("already searched");
             return;
         }
     }
@@ -142,7 +141,16 @@ var displayCityWeather = function(apiData) {
     currentTempEl.innerHTML = "Temperature: " + apiData.current.temp +	"\u2109";
     currentWindEl.innerHTML = "Wind Speed: " + apiData.current.wind_speed + "mph";
     currentHumidityEl.innerHTML = "Humidity: " + apiData.current.humidity +"%";
-    currentUviEl.innerHTML = "UV Index: " + apiData.current.uvi;
+    //UVI coloring
+    var uviColor = "";
+    if (apiData.current.uvi < 3.0){
+        uviColor = "green";
+    }else if (apiData.current.uvi < 7.0) {
+        uviColor = "orange";
+    } else {
+        uviColor = "red";
+    }
+    currentUviEl.innerHTML = "UV Index: <span style='background-color:"+uviColor+"; color:white; padding:5px;'>" + apiData.current.uvi + "</span>";
     displayForcast(apiData);
 
 };
@@ -170,7 +178,7 @@ var getCityWeather = function(city) {
                 fetch(apiUrl2).then(function(response2) {
                     if (response2.ok) {
                         response2.json().then(function(data2) {
-                            console.log(data2);
+                            //console.log(data2);
                             displayCityWeather(data2);
                         });
                     } else {
@@ -193,7 +201,7 @@ var formSubmitHandler = function(event) {
     if (cityName) {
         //call api with city 
         getCityWeather(cityName);
-
+        searchInputEl.value = "";
     }
 };
 
