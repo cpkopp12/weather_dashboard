@@ -41,6 +41,12 @@ var dateStringCurrent = "("+month.toString()+"/"+day.toString()+"/"+year.toStrin
 var cityheadername = "";
 var searchHistory =[];
 
+//method to return url string to icon given id
+var getIconString = function(iconId) {
+    return "<img src=https://openweathermap.org/img/wn/"+iconId+".png>";
+};
+
+
 //save Search History, call in getCityWeather()
 var saveSearchHistory = function() {
     localStorage.setItem("searchHistory",JSON.stringify(searchHistory));
@@ -125,7 +131,8 @@ var displayForcast = function(apiData) {
 
 //display current city weather
 var displayCityWeather = function(apiData) {
-    cityHeaderEl.innerHTML = cityheadername+ "  " +dateStringCurrent;
+    var weatherIcon = getIconString(apiData.current.weather[0].icon);
+    cityHeaderEl.innerHTML = cityheadername+ "  " +dateStringCurrent+" "+weatherIcon;
     // Temp Wind Humidity UVindex
     currentTempEl.innerHTML = "Temperature: " + apiData.current.temp +	"\u2109";
     currentWindEl.innerHTML = "Wind Speed: " + apiData.current.wind_speed + "mph";
@@ -158,7 +165,7 @@ var getCityWeather = function(city) {
                 fetch(apiUrl2).then(function(response2) {
                     if (response2.ok) {
                         response2.json().then(function(data2) {
-                            //console.log(data2);
+                            console.log(data2);
                             displayCityWeather(data2);
                         });
                     } else {
