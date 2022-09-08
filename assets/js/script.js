@@ -80,7 +80,7 @@ var appendSearchHistory = function(citySearched) {
     var newSearchHistoryEl = document.createElement("button");
     newSearchHistoryEl.setAttribute("class","list-group-item btn btn-primary btn-block mt-2");
     newSearchHistoryEl.setAttribute("type","button");
-    newSearchHistoryEl.setAttribute("style","background-color:blue;");
+    newSearchHistoryEl.setAttribute("style","background-color:#343a40;");
     newSearchHistoryEl.innerHTML = citySearched;
     
     searchHistoryUlEl.appendChild(newSearchHistoryEl);
